@@ -16,7 +16,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class connect {
      public static Connection connectDB(){
         
-        String path="jdbc:sqlite:D://Rpl/movie_db.db";
+        String path="jdbc:sqlite:D:/Rpl/movie_db.db";
         Connection con=null;
         try{
             con=DriverManager.getConnection(path);

@@ -46,6 +46,10 @@ public class register extends javax.swing.JFrame {
         InputPswd = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        jPanel1.setMaximumSize(new java.awt.Dimension(843, 707));
+        jPanel1.setMinimumSize(new java.awt.Dimension(843, 707));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 60)); // NOI18N
         jLabel2.setText("Movie database");
@@ -194,13 +198,28 @@ public class register extends javax.swing.JFrame {
     private void SignBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignBtnActionPerformed
         try{
             String query= "Insert into user_info (user_name,email_user,password_user) values(?,?,?)";
+            conn = connect.connectDB();
             pst=conn.prepareStatement(query);
             pst.setString(1, InputUsername.getText());
             pst.setString(2, InputEmail.getText());
             pst.setString(3, md5(InputPswd.getPassword()));
-            pst.execute();
+            pst.executeUpdate();
+if(InputUsername.equals("admin") && InputPswd.equals("admin")){
 
+                    Admin ad = new Admin();
+                    register.this.setVisible(false);
+                    ad.setVisible(true);
+                }
+                else{
+
+                    Home h = new Home();
+                    register.this.setVisible(false);
+                    h.setVisible(true);
+                   // h.TampilUser(uname,passwd);
+
+                }
             JOptionPane.showMessageDialog(null, "Selamat Anda berhasil bergabung");
+            
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
@@ -208,6 +227,7 @@ public class register extends javax.swing.JFrame {
         InputEmail.setText(" ");
         InputPswd.setText(" ");
         InputUsername.setText(" ");
+
     }//GEN-LAST:event_SignBtnActionPerformed
  private String md5(char[] c){
         try{
